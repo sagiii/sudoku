@@ -1,5 +1,7 @@
 # sudoku
-Sudoku solver
+Sudoku solver.
+
+![](example.gif)
 
 # Build
 ```
