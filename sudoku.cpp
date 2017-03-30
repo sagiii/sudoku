@@ -350,7 +350,8 @@ bool proceed_till_stuck(bool pos_from[9][9][9], bool pos_to[9][9][9])
     memcpy(det1, det0, sizeof(det0));
     update_possible(det0, pos);
     if (!is_valid(pos)) {
-      cout << "Invalid." << endl;
+      if (verbose)
+        cout << "Invalid." << endl;
       return false;
     }
     update_determined(pos, det0);
@@ -368,7 +369,8 @@ bool proceed_till_stuck(bool pos_from[9][9][9], bool pos_to[9][9][9])
     }
     // stuck!
     if (memcmp(det0, det1, sizeof(det0)) == 0) {
-      cout << "I'm stuck." << endl;
+      if (verbose)
+        cout << "I'm stuck." << endl;
       break;
     }
   }
@@ -386,11 +388,16 @@ bool explore(bool pos[9][9][9])
     for (vector<assm_t>::iterator i = assms.begin(); i != assms.end(); i++) {
       bool pos2[9][9][9];
       memcpy(pos2, pos1, sizeof(pos1));
+      char desc[100];
+      sprintf(desc, "(%d,%d) != %d", i->r, i->c, i->n);
+      if (verbose)
+        cout << "Assume " << desc << "." << endl;
       pos2[i->r][i->c][i->n] = false;
       if (explore(pos2)) {
         return true;
       } else {
-        // do nothing?
+        if (verbose)
+          cout << "Discard " << desc << "." << endl;
       }
     }
   } else {
