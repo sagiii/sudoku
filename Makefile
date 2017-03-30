@@ -10,4 +10,4 @@ sudoku: sudoku.o
 	${CC} ${CFLAGS} $^ -o $@
 
 clean:
-	rm -rf *.o
+	rm -rf *.o sudoku
